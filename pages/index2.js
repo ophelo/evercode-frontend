@@ -1,29 +1,19 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
-
-// Backend url system if you set the override you 
-// change the url in the development stage
-// do not commit the change of BACKEND_OVERRIDE
-const BACK_OVERRIDE = null;
-
-const BACK_ENDPOINT = process.env.NODE_ENV === "development" ?
-  BACK_OVERRIDE ?? process.env.BACK_ENDPOINT :
-  BACK_OVERRIDE ?? process.env.NEXT_PUBLIC_BACK_ENDPOINT
-
 export default function Home() {
   const [data, setData] = useState(null);
   const [btn, setBtn] = useState(false);
 
   const addUser = useCallback((e) => {
     e.preventDefault();
-    axios.get(BACK_ENDPOINT+ "/addUser");
+    axios.get("api/user/addUser");
   }, []);
 
   useEffect(() => {
     if (!data || btn) {
-      axios.get(BACK_ENDPOINT+ "/users").then((response) => {
-        setData(response.data);
+      axios.get("/api/user/users").then((response) => {
+        setData(response.data.data);
         setBtn(false);
       });
     }
