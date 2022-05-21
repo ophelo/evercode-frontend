@@ -1,12 +1,11 @@
-import SideBar from "../components/sidebar/SideBar"
+import SideBar from "../components/sidebar/SideBar";
 
 function friendPage() {
   return (
     <div>
-        <SideBar/>
-
+      <SideBar />
     </div>
-  )
+  );
 }
 
-export default friendPage
+export default friendPage;

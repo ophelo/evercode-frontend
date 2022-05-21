@@ -1,12 +1,11 @@
-import SideBar from "../components/sidebar/SideBar"
+import SideBar from "../components/sidebar/SideBar";
 
 function profile() {
   return (
     <div>
-        <SideBar/>
-
+      <SideBar />
     </div>
-  )
+  );
 }
 
-export default profile
+export default profile;

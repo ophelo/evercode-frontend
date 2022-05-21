@@ -1,11 +1,11 @@
-import SideBar from "../components/sidebar/SideBar"
+import SideBar from "../components/sidebar/SideBar";
 
 function listProjects() {
-  return(
+  return (
     <div>
-        <SideBar/>
+      <SideBar />
     </div>
-  )
+  );
 }
 
-export default listProjects
+export default listProjects;
