@@ -41,7 +41,8 @@ const NavbarWrite = ({
 
   const save = async () => {
     axios.post("", {
-      projectName ,
+      projectName,
+      lang,
       out,
     });
   };
@@ -51,7 +52,7 @@ const NavbarWrite = ({
     { value: "light", label: "Light" },
   ];
   return (
-    <div className="flex flex-row justify-center py-4 align-middle bg-bg1 gap-7  px-10">
+    <div className="flex fle59 mx-row justify-center py-4 align-middle bg-bg1 gap-7  px-10">
       <div className="flex-none  ">
         <Image
           alt="top-left"

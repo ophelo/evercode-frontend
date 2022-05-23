@@ -11,7 +11,7 @@ const SideBar = () => {
   const [open, setOpen] = useState(false);
   return (
     <div>
-      <div className=" flex flex-col left-0 top-0 w-35 h-screen bg-evercodeBlue shadow-md justify-start  gap-0.5">
+      <div className=" fixed flex flex-col left-0 top-0 w-35 h-screen bg-evercodeBlue shadow-md justify-start  gap-0.5">
         <Link href="/">
           <a className="flex items-center justify-center">
             <Image src="/everCode.jpg" height={64} width={64} />
