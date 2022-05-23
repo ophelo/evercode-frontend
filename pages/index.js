@@ -1,3 +1,5 @@
+import Head from 'next/head';
+import SideBar from '../components/sidebar/SideBar';
 import { useUser } from '@auth0/nextjs-auth0';
 
 export default function Index() {

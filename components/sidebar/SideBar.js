@@ -26,9 +26,9 @@ const SideBar = () => {
           </Link>
         </div>
 
-        <SideBarText text="Account" destination="/profile" />
+        {/* <SideBarText text="Account" destination="/profile" /> */}
         <SideBarText text="Projects" destination="/listProjects" />
-        <SideBarText text="Friends" destination="/friendPage" />
+        {/* <SideBarText text="Friends" destination="/friendPage" /> */}
       </div>
       <div
         className="fixed left-1 bottom-2"

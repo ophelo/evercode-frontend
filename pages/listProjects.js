@@ -1,22 +1,37 @@
 import SideBar from "../components/sidebar/SideBar";
-import {useEffect,useState} from "react"
+import { useEffect, useState } from "react";
+import axios from "axios";
+import PanelTile from "../components/PanelTile";
 
-// export async function getServerSideProps(){
-
-// }
 function listProjects() {
-  const [projects,setProjects] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [download, setDownload] = useState(false);
   const getFileList = async () => {
-    const body = await axios.get("/api/listProjects",);
+    const body = await axios.get("/api/listProjects");
     return body.data;
-  }
-  const  init  = useEffect(()=>{
+  };
+  useEffect(() => {
+    getFileList().then(list =>{
+      setProjects(list);
+      setDownload(true);
+    });
     
-  },[]);
+  }, []);
+  console.log(projects?.files);
   return (
-    <div className=" flex flex-row  w-sreen h-screen bg-evercodeBlue ">
+    <div className=" flex flex-row  w-sreen h-screen bg-white ">
       <SideBar />
-      <div className="grow bg-bblack flex flex-col items-center"></div>
+      <div className="grow bg-bblack flex flex-col items-center  gap-8 text-white">
+        <h3 className=" pt-10  flex flex-row w-2/3 justify-start font-bold font-sans text-left text-5xl"> Projects:</h3>
+        {(download) ? projects['files'].map((element) => (
+            <PanelTile
+              title={element.title}
+              description={element.description}
+              language={element.language}
+              date={element.date}
+            />))
+            : ("DOWNLOAD")}
+      </div>
     </div>
   );
 }
