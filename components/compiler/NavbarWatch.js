@@ -2,10 +2,11 @@ import React from "react";
 import Select from "react-select";
 import Image from "next/image";
 import makeAnimated from "react-select/animated";
-import { DiJsBadge,DiPython, DiMarkdown, } from "react-icons/di";
+import CustomButton from "../CustomButton" 
+import { DiJsBadge, DiPython, DiMarkdown } from "react-icons/di";
 import axios from "axios";
 
-const Navbar1 = ({
+const NavbarWatch = ({
   lang,
   setLang,
   theme,
@@ -22,20 +23,7 @@ const Navbar1 = ({
     return body.data;
   };
 
-  const languages = [
-    {
-      value: "python",
-      label: <DiPython size={20}/>
-    },
-    {
-      value: "javascript",
-      label: <DiJsBadge size={20} /> 
-    },
-    {
-      value: "markdown",
-      label: <DiMarkdown size={20}/>
-    },
-  ];
+ 
   const themes = [
     { value: "vs-dark", label: "Dark" },
     { value: "light", label: "Light" },
@@ -50,8 +38,8 @@ const Navbar1 = ({
           width={100}
         />
       </div>
+      
       <div className="grow flex flex-row justify-end align-middle gap-4">
-        
         <input
           type="radio"
           onClick={async () => {
@@ -61,16 +49,12 @@ const Navbar1 = ({
         />
 
         <input
-          type="radio"
-        />
- 
-        <input
           type="text"
           value={projectName}
           onChange={(e) => {
             setProjectName(e.target.value);
           }}
-          className="h-10 w-32 text-center rounded-md"
+          className="h-10 w-32 text-center rounded-md bg-stone-500"
         />
 
         <Select
@@ -104,11 +88,11 @@ const Navbar1 = ({
           onChange={(e) => {
             setFontSize(e.target.value);
           }}
-          className=" h-10 w-12 text-center rounded-md"
+          className=" h-10 w-12 text-center rounded-md bg-stone-500"
         />
       </div>
     </div>
   );
 };
 
-export default Navbar1;
+export default NavbarWatch;

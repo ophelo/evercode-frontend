@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
-//import Link from "next/link";
 import { useState } from "react";
+import CustomButton from "../components/CustomButton";
 
 export default function firstConfig() {
   const [userName, setUserName] = useState("");
@@ -12,7 +12,7 @@ export default function firstConfig() {
       <div className="pt-20 pb-5 ">
         <Image alt="Logo" src="/everCode.jpg" height={180} width={180} />
       </div>
-      <div className="flex flex-col gap-4 bg-bg2 w-1/3 h-80 items-center rounded-lg">
+      <div className="flex flex-col gap-4 bg-bg2 w-1/3 h-80 items-center rounded-xl">
         <div className="flex flex-col gap-1  items-center pt-6">
           <label className="text-bblack font-semibold">UserName</label>
           <input
@@ -58,6 +58,7 @@ export default function firstConfig() {
             value="Submit"
           />
         </div>
+       {/* <CustomButton value="ciao" stndColor="bg-bg1" textColor="text-bwhite" hoverColor="hover:bg-bblack"  onClick={()=> {console.log("funziona")}}  /> */}
       </div>
     </div>
   );

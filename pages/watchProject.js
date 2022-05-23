@@ -1,6 +1,6 @@
 import React from "react";
 import Editor from "../components/Editor";
-import Navbar2 from "../components/compiler/Navbar1";
+import NavbarWatch from "../components/compiler/NavbarWatch";
 export default function watchProject() {
   // Selected Programming Language
   const [lang, setLang] = useState("javascript");
@@ -17,7 +17,7 @@ export default function watchProject() {
 
   return (
     <div className="flex flex-col w-screen h-screen bg-bg1">
-      <Navbar2
+      <NavbarWatch
         lang={lang}
         setLang={setLang}
         theme={theme}

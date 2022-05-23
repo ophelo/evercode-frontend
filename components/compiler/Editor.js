@@ -1,11 +1,50 @@
 import React from "react";
 import dynamic from "next/dynamic";
-const MonacoEditor = dynamic(import("react-monaco-editor"), { ssr: false });
+const MonacoEditor = dynamic(import("@monaco-editor/react"), { ssr: false });
+import { useEffect } from "react";
+import { useTimer } from "react-timer-hook";
+const Editor = ({ 
+  code, 
+  setCode, 
+  lang, 
+  theme, 
+  fontSize, 
+  projectName }) => {
 
-const Editor = ({ code, setCode, lang, theme, fontSize }) => {
+  const opening = useEffect(() => {
+    if (localStorage.getItem(projectName) != "")
+      setCode(localStorage.getItem(projectName));
+    else console.log(" chiamata con axios per prendere da back");
+  }, []);
+  const time = new Date();
+  time.setSeconds(time.getSeconds() + 300);
+  const {
+    seconds,
+    minutes,
+    hours,
+    days,
+    isRunning,
+    start,
+    pause,
+    resume,
+    restart,
+  } = useTimer({
+    time,
+    onExpire: () => {
+      localStorage.setItem(projectName, code);
+      console.log(" funziona ");
+    },
+  });
+
   const options = {
     fontSize: fontSize,
   };
+
+  const startTimer = useEffect(() => {
+    if (!isRunning) {
+      restart(time);
+    }
+  }, [code]);
   return (
     <div className="flex flex-row gap-3 pl-12">
       <MonacoEditor
@@ -21,7 +60,7 @@ const Editor = ({ code, setCode, lang, theme, fontSize }) => {
           };
         }}
         height="calc(90vh - 60px)"
-        width="55%"
+        width="600px"
         options={options}
         theme={theme}
         language={lang}

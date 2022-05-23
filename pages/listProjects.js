@@ -1,9 +1,11 @@
 import SideBar from "../components/sidebar/SideBar";
 
 function listProjects() {
+
   return (
-    <div>
+    <div className="w-sreen h-screen bg-evercodeBlue ">
       <SideBar />
+      
     </div>
   );
 }

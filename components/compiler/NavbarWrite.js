@@ -1,10 +1,14 @@
 import React from "react";
-import {useState,useEffect} from "react";
+import { useState, useEffect } from "react";
+import makeAnimated from "react-select/animated";
 import Select from "react-select";
 import Image from "next/image";
 import axios from "axios";
+import CustomButton from "../CustomButton";
+import { DiJsBadge, DiPython, DiMarkdown } from "react-icons/di";
+import { FaPlay, FaSave } from "react-icons/fa";
 
-const Navbar2 = ({
+const NavbarWrite = ({
   lang,
   theme,
   setTheme,
@@ -15,9 +19,31 @@ const Navbar2 = ({
   out,
   setOut,
 }) => {
+  const languages = [
+    {
+      value: "python",
+      label: <DiPython size={20} />,
+    },
+    {
+      value: "javascript",
+      label: <DiJsBadge size={20} />,
+    },
+    {
+      value: "markdown",
+      label: <DiMarkdown size={20} />,
+    },
+  ];
+
   const getOutput = async () => {
-    const body = await axios.get("/api/compiler/code");
+    const body = await axios.get("/api/compiler/test1");
     return body.data;
+  };
+
+  const save = async () => {
+    axios.post("", {
+      projectName ,
+      out,
+    });
   };
 
   const themes = [
@@ -25,7 +51,7 @@ const Navbar2 = ({
     { value: "light", label: "Light" },
   ];
   return (
-    <div className="flex flex-row justify-center py-4 align-middle bg-bg1 gap-7 text-white px-10">
+    <div className="flex flex-row justify-center py-4 align-middle bg-bg1 gap-7  px-10">
       <div className="flex-none  ">
         <Image
           alt="top-left"
@@ -35,16 +61,22 @@ const Navbar2 = ({
         />
       </div>
       <div className="grow flex flex-row justify-end align-middle gap-4">
-        <input
-          type="radio"
+        <CustomButton 
+          value={<FaSave size={10}/>} 
+          onClick={()=>{
+              save();
+              setOut(out.toString("base64"));
+            }
+          } />
+
+        <CustomButton
+          value={<FaPlay size={10}/>}
           onClick={async () => {
             const code = await getOutput();
-            setOut(out + code.code);
+            setOut(out + code.code.toString("base64"));
           }}
-        >
-         
-        </input>
-        
+        />
+
         <input
           type="text"
           value={projectName}
@@ -91,4 +123,4 @@ const Navbar2 = ({
     </div>
   );
 };
-export default Navbar2;
+export default NavbarWrite;
