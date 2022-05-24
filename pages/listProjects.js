@@ -11,26 +11,33 @@ function listProjects() {
     return body.data;
   };
   useEffect(() => {
-    getFileList().then(list =>{
+    getFileList().then((list) => {
       setProjects(list);
       setDownload(true);
     });
-    
   }, []);
-  console.log(projects?.files);
+  
   return (
     <div className=" flex flex-row  w-sreen h-screen bg-white ">
       <SideBar />
       <div className="grow bg-bblack flex flex-col items-center  gap-8 text-white">
-        <h3 className=" pt-10  flex flex-row w-2/3 justify-start font-bold font-sans text-left text-5xl"> Projects:</h3>
-        {(download) ? projects['files'].map((element) => (
-            <PanelTile
-              title={element.title}
-              description={element.description}
-              language={element.language}
-              date={element.date}
-            />))
-            : ("DOWNLOAD")}
+        <h3 className=" pt-10  flex flex-row w-2/3 justify-start font-bold font-sans text-left text-5xl">
+          {" "}
+          Projects:
+        </h3>
+        {download
+          ? projects["files"].map((element) => (
+              <PanelTile
+                title={element.title}
+                description={element.description}
+                language={element.language}
+                date={element.date}
+                onClick={() => {
+                    setProjects(projects["files"].filter((val) => val.id==element.id))
+                }}
+              />
+            ))
+          : "DOWNLOAD"}
       </div>
     </div>
   );
