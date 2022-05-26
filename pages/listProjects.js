@@ -22,7 +22,6 @@ function listProjects() {
       <SideBar />
       <div className="grow bg-bblack flex flex-col items-center  gap-8 text-white">
         <h3 className=" pt-10  flex flex-row w-2/3 justify-start font-bold font-sans text-left text-5xl">
-          {" "}
           Projects:
         </h3>
         {download

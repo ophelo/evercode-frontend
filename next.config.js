@@ -36,6 +36,9 @@ module.exports = withTM({
     );
     return config;
   },
+  images: {
+    domains: ['lh3.googleusercontent.com'],
+  },
 });
 // Backend url system if you set the override you 
 // change the url in the development stage

@@ -3,13 +3,16 @@ import { useState, useEffect } from "react";
 import makeAnimated from "react-select/animated";
 import Select from "react-select";
 import Image from "next/image";
+import Link from "next/link";
 import axios from "axios";
 import CustomButton from "../CustomButton";
 import { DiJsBadge, DiPython, DiMarkdown } from "react-icons/di";
 import { FaPlay, FaSave } from "react-icons/fa";
+import {BsTrash} from "react-icons/bs"
 
 const NavbarWrite = ({
   lang,
+  setLang,
   theme,
   setTheme,
   fontSize,
@@ -54,24 +57,33 @@ const NavbarWrite = ({
   return (
     <div className="flex fle59 mx-row justify-center py-4 align-middle bg-bg1 gap-7  px-10">
       <div className="flex-none  ">
-        <Image
-          alt="top-left"
-          src="/orizzontaLogo.png"
-          height={40}
-          width={100}
-        />
+        <Link href="/">
+          <Image
+            alt="top-left"
+            src="/orizzontaLogo.png"
+            height={40}
+            width={100}
+          />
+        </Link>
       </div>
-      <div className="grow flex flex-row justify-end align-middle gap-4">
-        <CustomButton 
-          value={<FaSave size={10}/>} 
-          onClick={()=>{
-              save();
-              setOut(out.toString("base64"));
-            }
-          } />
+      <div className="grow flex flex-row justify-end items-center gap-4">
+        <CustomButton
+          value={<FaSave size={10} />}
+          onClick={() => {
+            save();
+            setOut(out.toString("base64"));
+          }}
+        />
 
         <CustomButton
-          value={<FaPlay size={10}/>}
+          value={<BsTrash size={10}/>}
+          onClick={async () => {
+            setOut("$~")
+          }}
+        />
+
+        <CustomButton
+          value={<FaPlay size={10} />}
           onClick={async () => {
             const code = await getOutput();
             setOut(out + code.code.toString("base64"));
