@@ -1,7 +1,7 @@
-import SideBar from "../components/sidebar/SideBar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PanelTile from "../components/PanelTile";
+import NavBar2 from "../components/sidebar/NavBar2";
 
 function listProjects() {
   const [projects, setProjects] = useState([]);
@@ -18,8 +18,8 @@ function listProjects() {
   }, []);
   
   return (
-    <div className=" flex flex-row  w-sreen h-screen bg-white ">
-      <SideBar />
+    <div className=" flex flex-col w-sreen h-screen bg-white ">
+      <NavBar2/>
       <div className="grow bg-bblack flex flex-col items-center  gap-8 text-white">
         <h3 className=" pt-10  flex flex-row w-2/3 justify-start font-bold font-sans text-left text-5xl">
           Projects:

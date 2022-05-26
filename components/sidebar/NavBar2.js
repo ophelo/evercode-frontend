@@ -1,16 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
 import { HiOutlineLogout } from "react-icons/hi";
-
+import {FaPlus} from "react-icons/fa"
 const NavBar2 = () => {
   const { user, error, isLoading } = useUser();
-  if (isLoading) return;
-  <div className="w-screen h-screen justify-center items-center">
-    <Image src="/spin.svg" width={100} height={100}/>
-  </div>;
+
   if (error) return <div>{error.message}</div>;
+  if (isLoading) return
+    <div className="w-screen h-screen justify-center items-center">
+      <Image src="/spin.svg" width={100} height={100} />
+    </div>;
 
   return (
     <div className="bg-bg1">
@@ -29,26 +29,33 @@ const NavBar2 = () => {
               </span>
             </a>
             <ul className="flex items-center space-x-8 lg:flex">
+              <li className="w-30 flex flex-row justify-center items-center py-2 ">
+                <Link href="/writeProject">
+                  <div className="rounded-md transition ease-in-out h-8 w-14 delay-150  hover:scale-110 hover:bg-blue-400 flex justify-center items-center duration-300 bg-bg3 ">
+                    <FaPlus size={15} />
+                  </div>
+                </Link>
+              </li>
               <li>
                 <a
-                  href="/"
-                  className="hover:text-lg ease-in-out delay-100  hover:-translate-y-1 hover:scale-110 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
+                  href="/listProjects"
+                  className=" hover:text-lg  ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
                 >
                   Projects
                 </a>
               </li>
               <li>
                 <a
-                  href="/"
-                  className="hover:text-lg ease-in-out delay-100  hover:-translate-y-1 hover:scale-110 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
+                  href="/profile"
+                  className="hover:text-lg ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
                 >
                   Account
                 </a>
               </li>
               <li>
                 <a
-                  href="/"
-                  className="hover:text-lg ease-in-out delay-100  hover:-translate-y-1 hover:scale-110 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
+                  href="/friendPage"
+                  className="hover:text-lg ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
                 >
                   Friends
                 </a>
@@ -56,7 +63,7 @@ const NavBar2 = () => {
             </ul>
           </div>
           <div className="flex items-center space-x-8 lg:flex">
-            {(user) ? (
+            {user ? (
               <div className="flex flex-row gap-2 shadow-lg rounded-3xl bg-stone-400 px-2 py-1.5 items-center">
                 <Image
                   src="/everCode.jpg"

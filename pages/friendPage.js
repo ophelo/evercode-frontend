@@ -1,9 +1,9 @@
-import SideBar from "../components/sidebar/SideBar";
+import NavBar2 from "../components/sidebar/NavBar2";
 
 function friendPage() {
   return (
     <div>
-      <SideBar />
+      <NavBar2/>
     </div>
   );
 }
