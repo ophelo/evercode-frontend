@@ -10,7 +10,7 @@ export default async function firstConfig(req,res) {
             'Authorization': "Bearer " + accessToken
         }
     }).catch(err => {
-        res.status(500).json(err.response.data);
+        res.status(500).json(err.response?.data);
     })
     if (!resp) return res;
     if (resp.data?.status == "ok") {
