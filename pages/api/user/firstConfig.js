@@ -2,7 +2,7 @@ import axios from "axios";
 import { getAccessToken } from '@auth0/nextjs-auth0';
 
 export default async function firstConfig(req,res) {
-    const url = process.env.SECURE ? 'https://' : 'http://' + process.env.BACK_ENDPOINT;
+    const url = (process.env.SECURE ? 'https://' : 'http://') + process.env.BACK_ENDPOINT;
     const { accessToken } = await getAccessToken(req, res);
     console.log(accessToken);
     console.log(url)
