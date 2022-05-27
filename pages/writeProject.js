@@ -3,7 +3,7 @@ import Editor from "../components/compiler/Editor";
 import NavbarWrite from "../components/compiler/NavbarWrite";
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 
-export default function watchProject() {
+export default function WatchProject() {
 
   const socketUrl = process.env.SECURE ? 'wss://' : 'ws://' + process.env.BACK_ENDPOINT+'/compiler'
 

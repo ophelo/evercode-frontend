@@ -1,6 +1,6 @@
 import NavBar2 from "../components/sidebar/NavBar2";
 
-function friendPage() {
+function FriendPage() {
   return (
     <div>
       <NavBar2/>
