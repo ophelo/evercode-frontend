@@ -2,9 +2,10 @@ import axios from "axios";
 import { getAccessToken } from '@auth0/nextjs-auth0';
 
 export default async function firstConfig(req,res) {
+    const url = process.env.SECURE ? 'https://' : 'http://' + process.env.BACK_ENDPOINT;
     const { accessToken } = await getAccessToken(req, res);
     console.log(accessToken);
-    const resp = await axios.post(process.env.BACK_ENDPOINT+ "/api/user/firstConfig",{ username: "Andrea"},{
+    const resp = await axios.post(url + "/api/user/firstConfig",{ username: "Andrea"},{
         headers: {
             'Authorization': "Bearer " + accessToken
         }
