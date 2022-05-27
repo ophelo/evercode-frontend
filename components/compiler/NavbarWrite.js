@@ -1,5 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import makeAnimated from "react-select/animated";
 import Select from "react-select";
 import Image from "next/image";
@@ -19,8 +18,10 @@ const NavbarWrite = ({
   setFontSize,
   projectName,
   setProjectName,
+  code,
   out,
   setOut,
+  sendJsonMessage,
 }) => {
   const languages = [
     {
@@ -36,11 +37,6 @@ const NavbarWrite = ({
       label: <DiMarkdown size={20} />,
     },
   ];
-
-  const getOutput = async () => {
-    const body = await axios.get("/api/compiler/test1");
-    return body.data;
-  };
 
   const save = async () => {
     axios.post("", {
@@ -85,8 +81,13 @@ const NavbarWrite = ({
         <CustomButton
           value={<FaPlay size={10} />}
           onClick={async () => {
-            const code = await getOutput();
-            setOut(out + code.code.toString("base64"));
+            if(!code){
+              return setOut("No code to compile!")
+            }
+            const decoded = Buffer.from(code).toString('base64');
+            setOut(""); // reset output on play
+            sendJsonMessage({ type: "file", name: "file1.cpp", text: decoded}) // send code
+            sendJsonMessage({type:"start", language: "cpp" }); // start code
           }}
         />
 
