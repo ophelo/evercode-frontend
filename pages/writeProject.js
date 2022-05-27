@@ -1,6 +1,9 @@
-import {useState,React} from "react";
+import { useState, React } from "react";
+import { BsMarkdown } from "react-icons/bs";
 import Editor from "../components/compiler/Editor";
 import NavbarWrite from "../components/compiler/NavbarWrite";
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
 
 export default function watchProject() {
   // Selected Programming Language
@@ -40,9 +43,16 @@ export default function watchProject() {
           fontSize={fontSize}
           projectName={projectName}
         />
-        <div className="  w-2/5 h-auto bg-bblack border-2 border-bwhite">
-          {" "}
-          <h1 className="overflow-y-auto text-bwhite py-1 px-3">{out} </h1>
+        <div className="  w-2/5 h-auto bg-bblack border-2 border-bwhite text-white">
+          {(lang == "markdown") ? (
+            <ReactMarkdown
+              remarkPlugins={[gfm]}
+              className="text-white"
+              children={code}
+            ></ReactMarkdown>
+          ) : (
+            <h1 className="overflow-y-auto text-bwhite py-1 px-3">{out} </h1>
+          )}
         </div>
       </div>
     </div>

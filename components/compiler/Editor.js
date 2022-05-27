@@ -11,40 +11,41 @@ const Editor = ({
   fontSize, 
   projectName }) => {
 
-  const opening = useEffect(() => {
-    if (localStorage.getItem(projectName) != "")
-      setCode(localStorage.getItem(projectName));
-    else console.log(" chiamata con axios per prendere da back");
-  }, []);
-  const time = new Date();
-  time.setSeconds(time.getSeconds() + 300);
-  const {
-    seconds,
-    minutes,
-    hours,
-    days,
-    isRunning,
-    start,
-    pause,
-    resume,
-    restart,
-  } = useTimer({
-    time,
-    onExpire: () => {
-      localStorage.setItem(projectName, code);
-      console.log(" funziona ");
-    },
-  });
+  // const opening = useEffect(() => {
+  //   if (localStorage.getItem(projectName) != "")
+  //     setCode(localStorage.getItem(projectName));
+  //   else console.log(" chiamata con axios per prendere da back");
+  // }, []);
+  // const time = new Date();
+  // time.setSeconds(time.getSeconds() + 300);
+  // const {
+  //   seconds,
+  //   minutes,
+  //   hours,
+  //   days,
+  //   isRunning,
+  //   start,
+  //   pause,
+  //   resume,
+  //   restart,
+  // } = useTimer({
+  //   time,
+  //   onExpire: () => {
+  //     localStorage.setItem(projectName, code);
+  //     console.log(" funziona ");
+  //   },
+  // });
 
   const options = {
     fontSize: fontSize,
   };
 
-  const startTimer = useEffect(() => {
-    if (!isRunning) {
-      restart(time);
-    }
-  }, [code]);
+  // const startTimer = useEffect(() => {
+  //   if (!isRunning) {
+  //     restart(time);
+  //   }
+  // }, [code]);
+
   return (
     <div className="flex flex-row gap-3 pl-12">
       <MonacoEditor
@@ -68,6 +69,7 @@ const Editor = ({
         defaultValue="//EVERCODE"
         onChange={(value) => {
           setCode(value);
+          console.log(code)
         }}
       />
     </div>
