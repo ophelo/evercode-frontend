@@ -5,7 +5,6 @@ import { FcSettings } from "react-icons/fc";
 import { FaPlus } from "react-icons/fa";
 import { useState } from "react";
 import Settings from "../Settings";
-import CustomButton from "../CustomButton";
 
 const SideBar = () => {
   const [open, setOpen] = useState(false);
