@@ -23,6 +23,21 @@ const NavbarWatch = ({
     return body.data;
   };
 
+  const languages = [
+    {
+      value: "python",
+      label: <DiPython size={20} />,
+    },
+    {
+      value: "javascript",
+      label: <DiJsBadge size={20} />,
+    },
+    {
+      value: "markdown",
+      label: <DiMarkdown size={20} />,
+    },
+  ];
+
  
   const themes = [
     { value: "vs-dark", label: "Dark" },

@@ -1,5 +1,5 @@
-import React from "react";
-import Editor from "../components/Editor";
+import React, {useState} from "react";
+import Editor from "../components/compiler/Editor";
 import NavbarWatch from "../components/compiler/NavbarWatch";
 
 export default function WatchProject() {
