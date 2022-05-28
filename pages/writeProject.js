@@ -5,7 +5,7 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 
 export default function WatchProject() {
 
-  const socketUrl = process.env.SECURE ? 'wss://' : 'ws://' + process.env.BACK_ENDPOINT+'/compiler'
+  const socketUrl = (process.env.SECURE ? 'wss://' : 'ws://') + process.env.BACK_ENDPOINT+'/compiler'
 
   // Selected Programming Language
   const [lang, setLang] = useState("javascript");
