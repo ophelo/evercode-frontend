@@ -1,4 +1,4 @@
-import NavBar2 from "../components/sidebar/NavBar2";
+import NavBar2 from "../components/navbar/NavBar2";
 
 function profile() {
   return (

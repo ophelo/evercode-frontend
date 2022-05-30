@@ -1,7 +1,7 @@
 import { useState, React } from "react";
 import { BsMarkdown } from "react-icons/bs";
 import Editor from "../components/compiler/Editor";
-import NavbarWrite from "../components/compiler/NavbarWrite";
+import NavbarWrite from "../components/navbar/NavbarWrite";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 
@@ -47,7 +47,7 @@ export default function watchProject() {
           {(lang == "markdown") ? (
             <ReactMarkdown
               remarkPlugins={[gfm]}
-              className="text-white"
+              className="pl-5 pt-2"
               children={code}
             ></ReactMarkdown>
           ) : (

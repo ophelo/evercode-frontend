@@ -1,11 +1,11 @@
-import NavBar2 from "../components/sidebar/NavBar2";
-
-function friendPage() {
+import NavBar2 from "../components/navbar/NavBar2";
+import UserCard from "../components/UserCard";
+export default function friendPage() {
   return (
     <div>
       <NavBar2/>
-    </div>
+      <UserCard favLang="c++" name="user1"/>
+    </div> 
   );
 }
 
-export default friendPage;

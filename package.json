@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.8.1",
     "@monaco-editor/react": "^4.4.5",
     "axios": "^0.26.1",
+    "dotenv": "^16.0.1",
     "monaco-editor-webpack-plugin": "^7.0.1",
     "next": "12.1.4",
     "next-transpile-modules": "^9.0.0",

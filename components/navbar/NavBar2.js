@@ -22,7 +22,7 @@ const NavBar2 = () => {
               href="/"
               aria-label="Evercode"
               title="EverCode"
-              class="inline-flex items-center mr-8"
+              className="inline-flex items-center mr-8"
             >
               <span className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
                 evercode
@@ -31,7 +31,7 @@ const NavBar2 = () => {
             <ul className="flex items-center space-x-8 lg:flex">
               <li className="w-30 flex flex-row justify-center items-center py-2 ">
                 <Link href="/writeProject">
-                  <div className="rounded-md transition ease-in-out h-8 w-14 delay-150  hover:scale-110 hover:bg-blue-400 flex justify-center items-center duration-300 bg-bg3 ">
+                  <div className="rounded-md transition ease-in-out h-8 w-14 delay-150   hover:bg-blue-400 flex justify-center items-center duration-300 bg-bg3 ">
                     <FaPlus size={15} />
                   </div>
                 </Link>
@@ -39,7 +39,7 @@ const NavBar2 = () => {
               <li>
                 <a
                   href="/listProjects"
-                  className=" hover:text-lg  ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
+                  className=" hover:font-bold hover:underline ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
                 >
                   Projects
                 </a>
@@ -47,7 +47,7 @@ const NavBar2 = () => {
               <li>
                 <a
                   href="/profile"
-                  className="hover:text-lg ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
+                  className="hover:font-bold hover:underline ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
                 >
                   Account
                 </a>
@@ -55,7 +55,7 @@ const NavBar2 = () => {
               <li>
                 <a
                   href="/friendPage"
-                  className="hover:text-lg ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
+                  className="hover:font-bold hover:underline ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
                 >
                   Friends
                 </a>
@@ -84,7 +84,7 @@ const NavBar2 = () => {
                 href="/api/auth/login"
                 aria-label="Sign in"
                 title="Sign in"
-                className="transition ease-in-out delay-150 hover:text-lg hover:shadow-lg font-medium tracking-wide text-gray-100 duration-100 hover:text-blue-400"
+                className="transition ease-in-out delay-150 hover:font-bold hover:underline hover:shadow-lg font-medium tracking-wide text-gray-100 duration-100 hover:text-blue-400"
               >
                 Sign in
               </a>
