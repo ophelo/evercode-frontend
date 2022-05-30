@@ -1,9 +1,10 @@
-import NavBar2 from "../components/sidebar/NavBar2";
-
+import NavBar2 from "../components/navbar/NavBar2";
+import UserCard from "../components/UserCard";
 export default function FriendPage() {
   return (
     <div>
       <NavBar2/>
-    </div>
+      <UserCard favLang="c++" name="user1"/>
+    </div> 
   );
 }

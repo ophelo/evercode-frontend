@@ -1,7 +1,9 @@
 import {useState, React, useEffect} from "react";
 import Editor from "../components/compiler/Editor";
-import NavbarWrite from "../components/compiler/NavbarWrite";
+import NavbarWrite from "../components/navbar/NavbarWrite";
 import useWebSocket, { ReadyState } from 'react-use-websocket';
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
 
 export default function WatchProject() {
 
@@ -67,9 +69,16 @@ export default function WatchProject() {
           fontSize={fontSize}
           projectName={projectName}
         />
-        <div className="  w-2/5 h-auto bg-bblack border-2 border-bwhite">
-          {" "}
-          <h1 className="overflow-y-auto text-bwhite py-1 px-3">{out} </h1>
+        <div className="  w-2/5 h-auto bg-bblack border-2 border-bwhite text-white">
+          {(lang == "markdown") ? (
+            <ReactMarkdown
+              remarkPlugins={[gfm]}
+              className="pl-5 pt-2"
+              children={code}
+            ></ReactMarkdown>
+          ) : (
+            <h1 className="overflow-y-auto text-bwhite py-1 px-3">{out} </h1>
+          )}
         </div>
       </div>
     </div>

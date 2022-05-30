@@ -51,6 +51,7 @@ const NavbarWrite = ({
     { value: "light", label: "Light" },
   ];
   return (
+    
     <div className="flex fle59 mx-row justify-center py-4 align-middle bg-bg1 gap-7  px-10">
       <div className="flex-none  ">
         <Link href="/">
@@ -67,15 +68,16 @@ const NavbarWrite = ({
           value={<FaSave size={10} />}
           onClick={() => {
             save();
-            setOut(out.toString("base64"));
+            // setOut(out.toString("base64"));
           }}
         />
 
+      {(lang=="markdown") ? "":<>
         <CustomButton
-          value={<BsTrash size={10}/>}
-          onClick={async () => {
-            setOut("$~")
-          }}
+        value={<BsTrash size={10}/>}
+        onClick={async () => {
+          setOut("$~")
+        }}
         />
 
         <CustomButton
@@ -90,6 +92,8 @@ const NavbarWrite = ({
             sendJsonMessage({type:"start", language: "cpp" }); // start code
           }}
         />
+        </>
+      }
 
         <input
           type="text"
@@ -106,7 +110,7 @@ const NavbarWrite = ({
             if (element.value == lang) return element.label;
           })}
           onChange={(e) => setLang(e.value)}
-          placeholder={languages[2].label}
+          placeholder={languages[1].label}
           components={makeAnimated}
         />
 

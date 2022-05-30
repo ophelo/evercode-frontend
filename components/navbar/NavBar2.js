@@ -33,7 +33,7 @@ export default function NavBar2() {
             <ul className="flex items-center space-x-8 lg:flex">
               <li className="w-30 flex flex-row justify-center items-center py-2 ">
                 <Link href="/writeProject">
-                  <div className="rounded-md transition ease-in-out h-8 w-14 delay-150  hover:scale-110 hover:bg-blue-400 flex justify-center items-center duration-300 bg-bg3 ">
+                  <div className="rounded-md transition ease-in-out h-8 w-14 delay-150   hover:bg-blue-400 flex justify-center items-center duration-300 bg-bg3 ">
                     <FaPlus size={15} />
                   </div>
                 </Link>
@@ -41,7 +41,7 @@ export default function NavBar2() {
               <li>
                 <Link href="/listProjects">
                 <a
-                  className=" hover:text-lg  ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
+                  className=" hover:font-bold hover:underline ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
                 >
                   Projects
                 </a>
@@ -50,7 +50,7 @@ export default function NavBar2() {
               <li>
                 <Link href="/profile">
                 <a
-                  className="hover:text-lg ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
+                  className="hover:font-bold hover:underline ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
                 >
                   Account
                 </a>
@@ -59,7 +59,7 @@ export default function NavBar2() {
               <li>
                 <Link href="/friendPage">
                 <a
-                  className="hover:text-lg ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
+                  className="hover:font-bold hover:underline ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
                 >
                   Friends
                 </a>
@@ -90,7 +90,7 @@ export default function NavBar2() {
               <a
                 aria-label="Sign in"
                 title="Sign in"
-                className="transition ease-in-out delay-150 hover:text-lg hover:shadow-lg font-medium tracking-wide text-gray-100 duration-100 hover:text-blue-400"
+                className="transition ease-in-out delay-150 hover:font-bold hover:underline hover:shadow-lg font-medium tracking-wide text-gray-100 duration-100 hover:text-blue-400"
               >
                 Sign in
               </a>

@@ -20,11 +20,11 @@ const PanelTile = ({title,date,description,language,onClick}) => {
     },
   ];
   return (
-    <div className="flex flex-row items-center gap-1 p-2 rounded-lg bg-stone-400 text-black ">
+    <div className="flex flex-row items-center gap-1 p-2 rounded-lg bg-stone-400 text-black  w-1/3">
       <Link href="/writeProject"  >
           <div className="text-center font-bold">{title}</div> 
       </Link>
-      <div className=" grow text-center px-3">{description}</div>
+      <div className=" grow text-center px-3 scroll-auto">{description}</div>
       <div className="text-white px-4">
         {langs.map(element =>{
             if(element.value == language) return element.label 

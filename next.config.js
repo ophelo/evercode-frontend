@@ -36,11 +36,14 @@ module.exports = withTM({
     );
     return config;
   },
-  images: {
-    domains: ['lh3.googleusercontent.com'],
-  },
 });
-// Backend url system if you set the override you 
+
+module.exports = {
+  images: {
+    domains: ["source.unsplash.com"],
+  },
+};
+// Backend url system if you set the override you
 // change the url in the development stage
 // do not commit the change of BACKEND_OVERRIDE
 const BACK_OVERRIDE = "localhost:5000";

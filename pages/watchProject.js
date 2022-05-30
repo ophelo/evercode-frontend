@@ -35,7 +35,6 @@ export default function WatchProject() {
         <Editor code={code} setCode={setCode} lang={lang} theme={theme} fontSize={fontSize}
         />
         <div className="  w-2/5 h-auto bg-bblack border-2 border-bwhite">
-          {" "}
           <h1 className="overflow-y-auto text-bwhite py-1 px-3">{out} </h1>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import PanelTile from "../components/PanelTile";
-import NavBar2 from "../components/sidebar/NavBar2";
+import PanelTile from "../components/ProjectCard";
+import NavBar2 from "../components/navbar/NavBar2";
 
 export default function ListProjects() {
   const [projects, setProjects] = useState([]);
