@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Editor from "../components/compiler/Editor";
-import NavbarWatch from "../components/compiler/NavbarWatch";
+import NavbarWatch from "../components/navbar/NavbarWatch";
 
 export default function WatchProject() {
   // Selected Programming Language
