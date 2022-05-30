@@ -1,9 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import { useState } from "react";
-import CustomButton from "../components/CustomButton";
 
-export default function firstConfig() {
+export default function FirstConfig() {
   const [userName, setUserName] = useState("");
   const [lang, setLang] = useState("");
   const [bio, setBio] = useState("");

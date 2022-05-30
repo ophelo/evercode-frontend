@@ -3,7 +3,7 @@ import axios from "axios";
 import PanelTile from "../components/ProjectCard";
 import NavBar2 from "../components/navbar/NavBar2";
 
-function listProjects() {
+export default function ListProjects() {
   const [projects, setProjects] = useState([]);
   const [download, setDownload] = useState(false);
   const getFileList = async () => {
@@ -25,12 +25,13 @@ function listProjects() {
           Projects:
         </h3>
         {download
-          ? projects["files"].map((element) => (
+          ? projects["files"].map((element, id) => (
               <PanelTile
                 title={element.title}
                 description={element.description}
                 language={element.language}
                 date={element.date}
+                key={id}
                 onClick={() => {
                     setProjects(projects["files"].filter((val) => val.id==element.id))
                 }}
@@ -41,5 +42,3 @@ function listProjects() {
     </div>
   );
 }
-
-export default listProjects;

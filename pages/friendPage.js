@@ -1,6 +1,6 @@
 import NavBar2 from "../components/navbar/NavBar2";
 import UserCard from "../components/UserCard";
-export default function friendPage() {
+export default function FriendPage() {
   return (
     <div>
       <NavBar2/>
@@ -8,4 +8,3 @@ export default function friendPage() {
     </div> 
   );
 }
-

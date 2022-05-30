@@ -18,7 +18,7 @@ export default handleAuth({
       try {
         await handleLogin(req, res, {
           authorizationParams: {
-            audience: 'http://localhost:5000', // or AUTH0_AUDIENCE
+            audience: (process.env.SECURE ? 'https://' : 'http://') + process.env.BACK_ENDPOINT, // or AUTH0_AUDIENCE
             // Add the `offline_access` scope to also get a Refresh Token
             scope: 'openid profile email read:messages' // or AUTH0_SCOPE
           },

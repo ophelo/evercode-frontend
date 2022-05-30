@@ -1,8 +1,8 @@
 import {useState,React} from "react";
 import Editor from "../../../components/compiler/Editor";
-import NavbarWrite from "../../../components/compiler/NavbarWrite";
+import NavbarWrite from "../../../components/navbar/NavbarWrite";
 
-export default function watchProject(props) {
+export default function WatchProject(props) {
     // Selected Programming Language
     const [lang, setLang] = useState("javascript");
     // Selected editor Theme

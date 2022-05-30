@@ -3,7 +3,8 @@ import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0";
 import { HiOutlineLogout } from "react-icons/hi";
 import {FaPlus} from "react-icons/fa"
-const NavBar2 = () => {
+
+export default function NavBar2() {
   const { user, error, isLoading } = useUser();
 
   if (error) return <div>{error.message}</div>;
@@ -18,8 +19,8 @@ const NavBar2 = () => {
         <div className="relative flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Image src="/everCodeICO.jpg" width={50} height={50} />
+            <Link href="/">
             <a
-              href="/"
               aria-label="Evercode"
               title="EverCode"
               className="inline-flex items-center mr-8"
@@ -28,6 +29,7 @@ const NavBar2 = () => {
                 evercode
               </span>
             </a>
+            </Link>
             <ul className="flex items-center space-x-8 lg:flex">
               <li className="w-30 flex flex-row justify-center items-center py-2 ">
                 <Link href="/writeProject">
@@ -37,28 +39,31 @@ const NavBar2 = () => {
                 </Link>
               </li>
               <li>
+                <Link href="/listProjects">
                 <a
-                  href="/listProjects"
                   className=" hover:font-bold hover:underline ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
                 >
                   Projects
                 </a>
+                </Link>
               </li>
               <li>
+                <Link href="/profile">
                 <a
-                  href="/profile"
                   className="hover:font-bold hover:underline ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
                 >
                   Account
                 </a>
+                </Link>
               </li>
               <li>
+                <Link href="/friendPage">
                 <a
-                  href="/friendPage"
                   className="hover:font-bold hover:underline ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
                 >
                   Friends
                 </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -72,22 +77,24 @@ const NavBar2 = () => {
                   className="rounded-full"
                 />
                 <>{user.name}</>
+                <Link href="/api/auth/logout">
                 <a
-                  href="/api/auth/logout"
                   className="shadow-xl bg-bblack p-1 text-white rounded-full"
                 >
                   <HiOutlineLogout />
                 </a>
+                </Link>
               </div>
             ) : (
+              <Link href="/api/auth/login">
               <a
-                href="/api/auth/login"
                 aria-label="Sign in"
                 title="Sign in"
                 className="transition ease-in-out delay-150 hover:font-bold hover:underline hover:shadow-lg font-medium tracking-wide text-gray-100 duration-100 hover:text-blue-400"
               >
                 Sign in
               </a>
+              </Link>
             )}
           </div>
         </div>
@@ -95,4 +102,3 @@ const NavBar2 = () => {
     </div>
   );
 };
-export default NavBar2;

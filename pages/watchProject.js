@@ -1,10 +1,8 @@
-import {React,useState} from "react";
+import React, {useState} from "react";
 import Editor from "../components/compiler/Editor";
 import NavbarWatch from "../components/navbar/NavbarWatch";
-import Link from "next/link"
-import { BsTrash } from "react-icons/bs";
 
-export default function watchProject() {
+export default function WatchProject() {
   // Selected Programming Language
   const [lang, setLang] = useState("javascript");
   // Selected editor Theme
