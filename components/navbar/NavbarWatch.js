@@ -2,9 +2,12 @@ import React from "react";
 import Select from "react-select";
 import Image from "next/image";
 import makeAnimated from "react-select/animated";
-import CustomButton from "../CustomButton" 
+import CustomButton from "../CustomButton";
 import { DiJsBadge, DiPython, DiMarkdown } from "react-icons/di";
 import axios from "axios";
+import Link from "next/link";
+import { BsTrash } from "react-icons/bs";
+import { FaPlay } from "react-icons/fa";
 
 const NavbarWatch = ({
   lang,
@@ -18,57 +21,74 @@ const NavbarWatch = ({
   out,
   setOut,
 }) => {
+  const languages = [
+    {
+      value: "python",
+      label: <DiPython size={20} />,
+    },
+    {
+      value: "javascript",
+      label: <DiJsBadge size={20} />,
+    },
+    {
+      value: "markdown",
+      label: <DiMarkdown size={20} />,
+    },
+  ];
+
   const getOutput = async () => {
-    const body = await axios.get("/api/compiler/code");
+    const body = await axios.get("/api/compiler/test1");
     return body.data;
   };
 
- 
   const themes = [
     { value: "vs-dark", label: "Dark" },
     { value: "light", label: "Light" },
   ];
   return (
-    <div className="flex flex-row justify-center py-4 align-middle bg-bg1 gap-7 text-white px-10">
+    <div className="flex fle59 mx-row justify-center py-4 align-middle bg-bg1 gap-7  px-10">
       <div className="flex-none  ">
-        <Image
-          alt="top-left"
-          src="/orizzontaLogo.png"
-          height={40}
-          width={100}
-        />
+        <Link href="/">
+          <Image
+            alt="top-left"
+            src="/orizzontaLogo.png"
+            height={40}
+            width={100}
+          />
+        </Link>
       </div>
-      
-      <div className="grow flex flex-row justify-end align-middle gap-4">
-        <input
-          type="radio"
-          onClick={async () => {
-            const code = await getOutput();
-            setOut(out + code.code);
-          }}
-        />
 
-        <input
-          type="text"
-          value={projectName}
-          onChange={(e) => {
-            setProjectName(e.target.value);
-          }}
-          className="h-10 w-32 text-center rounded-md bg-stone-500"
-        />
+      <div className="grow flex flex-row justify-end items-center gap-6">
+        <div className="h-10 w-32  text-white  py-3 flex justify-center items-center font-bold">
+          {projectName}
+        </div>
+        <div className="bg-bg1  text-white  flex justify-center items-center pr-3">
+          {languages.find((element) => element.value == lang).label}
+        </div>
+
+        {lang == "markdown" ? (
+          ""
+        ) : (
+          <>
+            <CustomButton
+              value={<BsTrash size={10} />}
+              onClick={async () => {
+                setOut("$~");
+              }}
+            />
+
+            <CustomButton
+              value={<FaPlay size={10} />}
+              onClick={async () => {
+                const code = await getOutput();
+                setOut(out + code.code.toString("base64"));
+              }}
+            />
+          </>
+        )}
 
         <Select
-          options={languages}
-          value={languages.forEach((element) => {
-            if (element.value == lang) return element.label;
-          })}
-          onChange={(e) => setLang(e.value)}
-          placeholder={languages[2].label}
-          components={makeAnimated}
-        />
-
-        <Select
-          className="bg-bg1"
+          className="bg-bg1 "
           options={themes}
           value={themes.forEach((element) => {
             if (element.value == theme) return element.label;
@@ -88,11 +108,10 @@ const NavbarWatch = ({
           onChange={(e) => {
             setFontSize(e.target.value);
           }}
-          className=" h-10 w-12 text-center rounded-md bg-stone-500"
+          className=" h-10 w-12 text-center rounded-md"
         />
       </div>
     </div>
   );
 };
-
 export default NavbarWatch;

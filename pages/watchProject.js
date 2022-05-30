@@ -1,6 +1,9 @@
-import React from "react";
-import Editor from "../components/Editor";
+import {React,useState} from "react";
+import Editor from "../components/compiler/Editor";
 import NavbarWatch from "../components/navbar/NavbarWatch";
+import Link from "next/link"
+import { BsTrash } from "react-icons/bs";
+
 export default function watchProject() {
   // Selected Programming Language
   const [lang, setLang] = useState("javascript");
@@ -34,7 +37,6 @@ export default function watchProject() {
         <Editor code={code} setCode={setCode} lang={lang} theme={theme} fontSize={fontSize}
         />
         <div className="  w-2/5 h-auto bg-bblack border-2 border-bwhite">
-          {" "}
           <h1 className="overflow-y-auto text-bwhite py-1 px-3">{out} </h1>
         </div>
       </div>
