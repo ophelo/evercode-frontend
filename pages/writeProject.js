@@ -74,8 +74,7 @@ export default function WatchProject() {
             <ReactMarkdown
               remarkPlugins={[gfm]}
               className="pl-5 pt-2"
-              children={code}
-            ></ReactMarkdown>
+            >{code}</ReactMarkdown>
           ) : (
             <h1 className="overflow-y-auto text-bwhite py-1 px-3">{out} </h1>
           )}
