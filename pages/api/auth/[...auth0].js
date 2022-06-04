@@ -1,17 +1,9 @@
-import { handleAuth, handleCallback, handleLogin, getAccessToken } from '@auth0/nextjs-auth0';
-import axios from 'axios';
+import { handleAuth, handleLogin, handleCallback } from '@auth0/nextjs-auth0';
 
 const afterCallback = async (req, res, session, state) => {
-  //if ( session.user.) // qui farò il controllo se nei metadati dell'utente la voce isInitialized è false oppure true
-  const { accessToken } = await getAccessToken(req, res);
-  const respBody = await axios.get(process.env.BACK_ENDPOINT+ "api/user/firstConfig",{
-    headers: {
-        'Authorization': "Bearer " + accessToken
-    }
-  });
-  console.log(respBody);
+  console.log(session);
   return session;
-};
+}
 
 export default handleAuth({
     async login(req, res) {
@@ -22,10 +14,17 @@ export default handleAuth({
             // Add the `offline_access` scope to also get a Refresh Token
             scope: 'openid profile email read:messages' // or AUTH0_SCOPE
           },
-          returnTo: "/api/user/firstConfig"
+          returnTo: "/api/user/checkProfile"
         });
       } catch (error) {
         res.status(error.status || 400).end(error.message);
       }
     },
+    async callback(req, res) {
+      try {
+          await handleCallback(req, res, { afterCallback });
+      } catch (error) {
+          res.status(error.status || 500).end(error.message);
+      }
+  }
   });
