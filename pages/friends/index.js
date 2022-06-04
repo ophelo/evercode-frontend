@@ -1,13 +1,15 @@
 import NavBar2 from "../../components/navbar/NavBar2";
-import FriendReqCard from "../../components/FriendReqCard";
-import FriendWallCard from "../../components/FriendWallCard";
+import FriendWallCard from "../../components/friend/WallCard";
 import { useEffect, useState } from "react";
 import { getAccessToken } from '@auth0/nextjs-auth0';
 import axios from "axios";
+import GridRecv from "../../components/friend/request/GridRecv";
+import GridSend from "../../components/friend/request/GridSend";
 
 export default function FriendsPage({ accessToken }) {
   const [friends, setFriends ] = useState([]);
-  const [requests, setRequests] = useState([]);
+  const [sendRequest, setSendRequest] = useState([]);
+  const [receivedRequest, setReceivedRequest] = useState([]);
   const [disable, setDisable ] = useState(false)
   const url = (process.env.SECURE ? 'https://' : 'http://') + process.env.BACK_ENDPOINT;
 
@@ -22,9 +24,22 @@ export default function FriendsPage({ accessToken }) {
     axios.get(url+'/api/friend/request',{
       headers: {
         Authorization: 'Bearer ' + accessToken
+      },
+      params:{
+        type: 'send',
       }
     }).then((resp) => {
-      setRequests(resp.data);
+      setSendRequest(resp.data);
+    })
+    axios.get(url+'/api/friend/request',{
+      headers: {
+        Authorization: 'Bearer ' + accessToken
+      },
+      params:{
+        type: 'received',
+      }
+    }).then((resp) => {
+      setReceivedRequest(resp.data);
     })
     setDisable(false)
   },[disable])
@@ -44,12 +59,10 @@ export default function FriendsPage({ accessToken }) {
                     </div>
                 </aside>
                 <main role="main" className="w-full sm:w-2/3 md:w-3/4 pt-5 md:px-5 lg:px-5 ">
-                    <div className="grid gap-4 grid-cols-[repeat(auto-fill,_minmax(200px,1fr))]">
-                    {requests ? requests.map((r)=>{
-                          console.log(r._id)
-                          return (<FriendReqCard id={r._id} random={r.sender.username} accessToken={accessToken} setDisable={setDisable} />)
-                        }): (<h1>loading..</h1>)}
-                    </div>
+                    {sendRequest && sendRequest.length ? <div className="text-xl font-bold">Request Sent:</div> : ""}
+                    <GridSend accessToken={accessToken} setDisable={setDisable} requests={sendRequest} />
+                    {receivedRequest && receivedRequest.length ? <div className="text-xl font-bold">Request Received:</div> : ""}
+                    <GridRecv accessToken={accessToken} setDisable={setDisable} requests={receivedRequest} />
                 </main>
             </div>
         </div>
@@ -58,6 +71,12 @@ export default function FriendsPage({ accessToken }) {
 }
 
 export async function getServerSideProps({ req, res }) {
-  const { accessToken } = await getAccessToken(req, res);
+  const { accessToken } = await getAccessToken(req, res)
+    .catch(err => {
+      res.setHeader("location", "/api/auth/login");
+      res.statusCode = 302;
+      res.end();
+    })
+  console.log(accessToken)
   return { props: { accessToken } }
 }
