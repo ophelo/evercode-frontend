@@ -53,8 +53,8 @@ export default function FriendsPage({ accessToken }) {
                         Amici
                     </div>
                     <div className="sticky top-0 p-1 w-full">
-                        {friends ? friends.map((f)=>{
-                          return (<FriendWallCard name={f.username}/>)
+                        {friends ? friends.map((f,id)=>{
+                          return (<FriendWallCard key={id} name={f.username}/>)
                         }): (<h1>loading..</h1>)}
                     </div>
                 </aside>
