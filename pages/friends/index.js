@@ -42,7 +42,7 @@ export default function FriendsPage({ accessToken }) {
       setReceivedRequest(resp.data);
     })
     setDisable(false)
-  },[disable])
+  },[disable, accessToken])
   return (
     <>
       <NavBar2 />
