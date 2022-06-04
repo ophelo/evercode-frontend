@@ -22,13 +22,11 @@ const sendFirstConfig = async (router, token, username, bio, lang) => {
   })
 }
 
-export default function FirstConfig({ router, accessToken }) {
-  const { user, isLoading, error } = useUser();
-  console.log(user)
-  if( isLoading) return null
+export default function FirstConfig({ router, user, accessToken }) {
   const [username, setUsername] = useState(user.nickname);
   const [lang, setLang] = useState("c++");
   const [bio, setBio] = useState("");
+  
   return (
     <div className="flex flex-col bg-bg1 w-screen h-screen items-center  ">
       <div className="pt-20 pb-5 ">
