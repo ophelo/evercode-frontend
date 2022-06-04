@@ -57,7 +57,7 @@ export default function NavBar2() {
                 </Link>
               </li>
               <li>
-                <Link href="/friendPage">
+                <Link href="/friends">
                 <a
                   className="hover:font-bold hover:underline ease-in-out delay-100 hover:shadow-xl font-medium tracking-wide text-gray-100 transition-colors duration-100 hover:text-blue-400"
                 >
