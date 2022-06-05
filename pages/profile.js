@@ -1,9 +1,19 @@
+import LastActivity from "../components/LastActivity";
 import NavBar2 from "../components/navbar/NavBar2";
+import { getSession } from "@auth0/nextjs-auth0";
 
-export default function Profile() {
+export default function Profile({ accessToken }) {
   return (
-    <div>
-      <NavBar2/>
-    </div>
+    <LastActivity accessToken={accessToken}>
+       <div>
+        <NavBar2/>
+      </div>
+    </LastActivity>
   );
+}
+
+export function getServerSideProps({ req, res }) {
+  const session = getSession(req, res)
+  if (!session) return { props: {}}
+  return { props: { accessToken: session.accessToken } }
 }
