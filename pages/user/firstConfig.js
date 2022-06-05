@@ -87,6 +87,7 @@ export default function FirstConfig({ router, user, accessToken }) {
 }
 
 export function getServerSideProps({ req, res }) {
-  const { user, accessToken } = getSession(req, res); // get session dovrebbe automaticamente refreshare la sessione
-  return { props: { user, accessToken } }
+  const session = getSession(req, res)
+  if (!session) return { props: {}}
+  return { props: { accessToken: session.accessToken } }
 }
