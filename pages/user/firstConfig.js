@@ -89,5 +89,5 @@ export default function FirstConfig({ router, user, accessToken }) {
 export function getServerSideProps({ req, res }) {
   const session = getSession(req, res)
   if (!session) return { props: {}}
-  return { props: { accessToken: session.accessToken } }
+  return { props: { accessToken: session.accessToken, user } }
 }
