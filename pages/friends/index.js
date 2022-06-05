@@ -1,7 +1,7 @@
 import NavBar2 from "../../components/navbar/NavBar2";
 import FriendWallCard from "../../components/friend/WallCard";
 import { useEffect, useState } from "react";
-import { getSession } from "@auth0/nextjs-auth0";
+import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import GridRecv from "../../components/friend/request/GridRecv";
 import GridSend from "../../components/friend/request/GridSend";
 import useSWR from 'swr'
@@ -71,8 +71,10 @@ export default function FriendsPage({ accessToken }) {
   );
 }
 
-export function getServerSideProps({ req, res }) {
-  const session = getSession(req, res)
-  if (!session) return { props: {}}
-  return { props: { accessToken: session.accessToken } }
-}
+// Version with authorization page check
+export const getServerSideProps = withPageAuthRequired({
+  async getServerSideProps({req, res}) {
+    const session = getSession(req, res);
+    return { props: { accessToken: session?.accessToken, user: session?.user } }
+  }
+});
