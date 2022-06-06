@@ -15,6 +15,7 @@
     "@auth0/nextjs-auth0": "^1.7.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@headlessui/react": "^1.6.4",
     "@monaco-editor/react": "^4.4.5",
     "axios": "^0.26.1",
     "dotenv": "^16.0.1",
