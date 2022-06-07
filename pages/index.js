@@ -3,8 +3,7 @@ import LastActivity from "../components/LastActivity";
 import { getSession } from "@auth0/nextjs-auth0";
 import NavBar2 from "../components/navbar/NavBar2";
 import { Tab } from "@headlessui/react";
-import FollowingFeed from "../components/FollowingFeed";
-import TrendingFeed from "../components/TrendingFeed";
+import Feed from "../components/Feed";
 import { Fragment } from "react";
 
 export default function Index({ accessToken }) {
@@ -50,10 +49,10 @@ export default function Index({ accessToken }) {
                 </Tab.List>
                 <Tab.Panels>
                   <Tab.Panel>
-                    <FollowingFeed />
+                    <Feed route="/api/followingFeed" />
                   </Tab.Panel>
                   <Tab.Panel>
-                    <TrendingFeed />
+                    <Feed route="/api/trendingFeed"/>
                   </Tab.Panel>
                 </Tab.Panels>
               </Tab.Group>
