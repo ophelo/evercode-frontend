@@ -18,20 +18,19 @@ const Comments = ({ currentUserId }) => {
 
   // Get Replies
   const getReplies = async (commentId) => {
-    let x = backendComments
-      .find(commentId)
-      .backendComments.filter(
-        (backendComment) => backendComment._id === commentId
-      )
-      .sort(
-        (a, b) =>
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      );
+    const replies = axios.get("/:_idComment/getReplys",)
+    setBackendComments(()=> {
+      const i = backendComments.findIndex(
+          (element) => element._id == commentId
+        );
+        backendComments[i].replies = replies;
+    })
   };
 
-  // Add comments
+
+  // Add comment
   const addComment = async (text) => {
-    const comment = await axios.post("  ", { commentText: text }).then(() => {
+    const comment = await axios.post("/:_id/addComment", { commentText: text }).then(() => {
       setBackendComments((list) => {
         list.concat(comment);
       });
@@ -39,30 +38,49 @@ const Comments = ({ currentUserId }) => {
     });
   };
 
+  // Add reply
+  const addReply = async (text) =>{
+    const comment = axios.post("/:_idComment/replyComment",{commentText: text});
+    setBackendComments(()=> {
+      const i = backendComments.findIndex(
+          (element) => element._id == commentId
+        );
+        backendComments[i].replies.push(comment);
+    })
+  }
+
   // Update del commento
-  const updateComment = async (text,commentId) => {
-    const fixedComment = await axios.patch("",text)    
-    backendComments.find(comment => comment.id==commentId).remove
-    setBackendComments(updatedBackendComments);
-    setActiveComment(null);
+  const updateComment = async (text, commentId) => {
+    if (window.confirm("Are you sure you want to change the comment?")) {
+      axios.patch(":_id/modify/:_idComment", { commentText: text });
+      setBackendComments(() => {
+        const i = backendComments.findIndex(
+          (element) => element._id == commentId
+        );
+        backendComments[i].commentText = text;
+      });
+      setActiveComment(null);
     }
+  };
 
   // Delete di un commento
   const deleteComment = async (commentId) => {
     if (window.confirm("Are you sure you want to remove comment?")) {
-      axios.delete().then(() => {
-        const updatedBackendComments = backendComments.filter(
-          (backendComment) => backendComment.id !== commentId
+      axios.delete("/:_id/delete/:_idComment");
+      setBackendComments(() => {
+        const i = backendComments.findIndex(
+          (element) => element._id == commentId
         );
-        setBackendComments(updatedBackendComments);
+        backendComments.splice(i, 1);
       });
+      setActiveComment(null);
     }
   };
 
   // caricamento iniziale commenti
   useEffect(() => {
-    getCommentsApi().then((data) => {
-      setBackendComments(data);
+    setBackendComments(async () => {
+      await axios.get(":_id/allComments/");
     });
   }, []);
 
