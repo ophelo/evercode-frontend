@@ -1,53 +1,175 @@
-import {useState,React} from "react";
-import Editor from "../../../components/compiler/Editor";
-import NavbarWrite from "../../../components/navbar/NavbarWrite";
+import React, { useEffect, useState } from "react";
+import LastActivity from "../../../components/LastActivity";
+import NavBar2 from "../../../components/navbar/NavBar2";
+import { getSession } from "@auth0/nextjs-auth0";
+import WallCard from "../../../components/friend/WallCard";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
+import { FiEdit2, FiSave, FiXCircle } from 'react-icons/fi'
+import useSWR from "swr";
+import {fetcherGet} from "../../../utils/fetcher"
+import axios from 'axios'
 
-export default function WatchProject(props) {
-    // Selected Programming Language
-    const [lang, setLang] = useState("javascript");
-    // Selected editor Theme
-    const [theme, setTheme] = useState("vs-dark");
-    // Variable for the font size
-    const [fontSize, setFontSize] = useState(15);
-    // State containing the current code
-    const [code, setCode] = useState("");
-    // State containing the ouput
-    const [out, setOut] = useState("$~");
-    // State for the project name
-    const [projectName, setProjectName] = useState("NewProject");
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-    console.log(props.router.query.id)
-  
-    return (
-      <div className="flex flex-col w-screen h-screen bg-bg1">
-        <NavbarWrite
-          lang={lang}
-          setLang={setLang}
-          theme={theme}
-          setTheme={setTheme}
-          fontSize={fontSize}
-          setFontSize={setFontSize}
-          projectName={projectName}
-          setProjectName={setProjectName}
-          out={out}
-          setOut={setOut}
-        />
-  
-        <div className="flex flex-row gap-3 pl-12">
-          <Editor
-            code={code}
-            setCode={setCode}
-            lang={lang}
-            theme={theme}
-            fontSize={fontSize}
-            projectName={projectName}
-          />
-          <div className="  w-2/5 h-auto bg-bblack border-2 border-bwhite">
-            {" "}
-            <h1 className="overflow-y-auto text-bwhite py-1 px-3">{out} </h1>
+export const data = {
+  labels: ['Down votes', 'Up votes'],
+  datasets: [
+    {
+      label: '# of Votes',
+      data: [100, 200],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+      ],
+      borderWidth: 1,
+    },
+  ],
+};
+
+const url = (process.env.SECURE ? 'https://' : 'http://') + process.env.BACK_ENDPOINT;
+
+const modifyProject = async (token, id, description, title, setDescription, setTitle) => {
+  await axios.patch(url+'/api/project/' + id,{
+    title: title,
+    description: description
+  }, {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }).then((resp) => {
+    //router.replace('/');
+    setDescription(description)
+    setTitle(title)
+  }).catch(err => {
+    console.log(err);
+  })
+}
+
+const deleteOwner = async (token,router, id, ownerId, owners, setOwners) => {
+  await axios.delete(url+'/api/project/' + id + '/owner/' + ownerId, {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }).then((resp) => {
+    //router.replace('/');
+    setOwners(owners.filter((elem) => {return elem._id == ownerId}))
+    if (resp.data.message == "Removed owner and project") router.replace('/listProjects')
+  }).catch(err => {
+    console.log(err);
+  })
+}
+
+export default function View({accessToken, router}) {
+  const [edit,setEdit] = useState(false)
+  const [title, setTitle] = useState("")
+  const [lang, setLang] = useState("")
+  const [description, setDescription] = useState("")
+  const [owners, setOwners] = useState([])
+
+  const { data: project , error } = useSWR({ 
+    url: url + '/api/project/' + router.query.id,
+    token: accessToken,
+  }, fetcherGet);
+
+  useEffect(() => {
+    if (project) {
+      setDescription(project.description)
+      setLang(project.language)
+      setTitle(project.title)
+      setOwners(project.owners)
+    }
+  }, [project])
+    
+  return (
+    <LastActivity accessToken={accessToken}>
+      <div className="h-screen">
+        <NavBar2/>
+        <div className="h-full">
+          <div className="flex w-screen bg-gray-300 h-1/4">
+            <div className="bg-blue-500 rounded-full w-28 h-28 self-end m-5"/>
+            <div 
+              className={"text-3xl font-bold self-end p-10 "  + (edit ? "hidden" : "")}>
+                {title}
+            </div>
+            <input 
+                className={"m-10 text-3xl border-2 border-black font-bold bg-transparent self-end " + (!edit ? "hidden" : "") }
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+              />
+          </div>
+
+          <div className="mt-4 p-10">
+            <button 
+              className={"self-end border-2 border-black rounded-lg text-lg p-1 " + (edit ? "hidden" : "")}
+              onClick={() => {setEdit(!edit)}}>
+              <FiEdit2/>
+            </button>
+            <button 
+              className={"text-xl text-green-500 border-2 border-green-500 p-1 rounded-lg " + (!edit ? "hidden" : "")} 
+              onClick={async () => {
+                setEdit(!edit)
+                await modifyProject(accessToken, project._id, description, title, setDescription, setTitle)}}>
+              <FiSave/>
+            </button>
+            <div className="flex justify-end">
+              <div className="shadow-md p-2">
+                <div className="flex">
+                  <div className="text-2xl font-bold">Autori</div>
+                </div>
+                {owners.map((elem, id) => {
+                  return (
+                    <div key={id} className="flex items-center">
+                      <WallCard name={elem.username} />
+                      <button 
+                        className={"text-xl text-red-500 p-1 rounded-lg " + (!edit ? "hidden" : "")} 
+                        onClick={async () => {
+                          setEdit(!edit)
+                          await deleteOwner(accessToken, router, project._id, elem._id, owners, setOwners)}}>
+                        <FiXCircle/>
+                      </button>
+                    </div>
+                  )
+                })}
+                
+              </div>
+            </div>
+
+            <div className="rounded-lg shadow-md p-2">
+              <div className="flex">
+                <div className="text-3xl font-bold">Descrizione</div>
+              </div>
+              <textarea 
+                className={"w-full h-full text-lg border-2 border-black " + (!edit ? "hidden" : "") }
+                onChange={(e) => setDescription(e.target.value)}
+                value={description}
+              />
+              <div className={"text-lg " + (edit ? "hidden" : "") }>{description}</div>
+            </div>
+
+            <div className="mt-5 shadow-md rounded-lg p-2">
+              <div className="text-3xl font-bold">Statistics</div>
+              <div className="pt-2 flex flex-col place-items-center">
+                <div className="flex place-items-center h-1/4 w-1/4">
+                  <Doughnut data={data} />
+                </div>
+                <div>Visualizzazioni: 100</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    );
-  }
+    </LastActivity>
+  )
+}
+
+export function getServerSideProps({ req, res }) {
+  const session = getSession(req, res)
+  if (!session) return { props: {}}
+  return { props: { accessToken: session.accessToken, user: session.user } }
+}
   
