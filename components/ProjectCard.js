@@ -3,21 +3,26 @@ import Link from "next/link";
 import {BsTrash} from "react-icons/bs"
 import CustomButton from "./CustomButton";
 import { DiJsBadge, DiPython, DiMarkdown } from "react-icons/di";
+import {SiCplusplus} from "react-icons/si";
 import Vote from "./Votes/Votes";
 
 const PanelTile = ({title,date,description,language,onClick}) => {
   const langs = [
     {
       value: "python",
-      label: <DiPython size={20} />,
+      label: <DiPython className="rounded-lg w-full h-full justify-start relative m-2 pb-2 fill-yellow-500 bg-blue-800"/>,
     },
     {
       value: "javascript",
-      label: <DiJsBadge size={20} />,
+      label: <DiJsBadge className="rounded-lg w-full h-full justify-start relative m-2 pb-2 fill-yellow-600 bg-black"/>,
     },
     {
       value: "markdown",
-      label: <DiMarkdown size={20} />,
+      label: <DiMarkdown className="rounded-lg w-full h-full justify-start relative m-2 pb-2 fill-stone-800"/>,
+    },
+    {
+      value: "cpp",
+      label: <SiCplusplus className="rounded-lg w-full h-full justify-start relative m-2 pb-2 fill-sky-700"/>,
     },
   ];
   return (
@@ -37,4 +42,5 @@ const PanelTile = ({title,date,description,language,onClick}) => {
     </div>
   );
 };
+
 export default PanelTile;
