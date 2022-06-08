@@ -18,7 +18,7 @@ const Comments = ({ currentUserId }) => {
 
   // Get Replies
   const getReplies = async (commentId) => {
-    const replies = axios.get("/:_idComment/getReplys",)
+    const replies = axios.get("/:_idComment/getReplies",)
     setBackendComments(()=> {
       const i = backendComments.findIndex(
           (element) => element._id == commentId
@@ -40,7 +40,7 @@ const Comments = ({ currentUserId }) => {
 
   // Add reply
   const addReply = async (text) =>{
-    const comment = axios.post("/:_idComment/replyComment",{commentText: text});
+    const comment = axios.post("/:_idComment/replyComment/",{commentText: text});
     setBackendComments(()=> {
       const i = backendComments.findIndex(
           (element) => element._id == commentId
@@ -85,15 +85,16 @@ const Comments = ({ currentUserId }) => {
   }, []);
 
   return (
-    <div className="comments">
-      <div className="comment-form-title">Write comment</div>
-      <CommentForm submitLabel="Write" handleSubmit={addComment} />
-      <div className="comments-container">
+    <div className="">
+      <div className="">Write comment</div>
+      <CommentForm submitLabel="" handleSubmit={addComment} />
+      <div className="">
         {backendComments.map((backendComment) => (
           <Comment
             key={backendComment._id}
             comment={backendComment}
-            replies={getReplies(backendComment._id)}
+            // replies={getReplies(backendComment._id)}
+            getReplies={getReplies}
             activeComment={activeComment}
             setActiveComment={setActiveComment}
             addComment={addComment}

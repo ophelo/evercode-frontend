@@ -17,7 +17,7 @@ const CommentForm = ({
   return (
     <form onSubmit={onSubmit}>
       <textarea
-        className=""
+        className="w-full border-2 border-black "
         value={text}
         onChange={(e) => setText(e.target.value)}
       />

@@ -1,40 +1,35 @@
 import CommentForm from "./CommentForm";
+import { useState } from "react";
 
 const Comment = ({
   comment,
-  replies,
+  // replies,
+  getReplies,
   setActiveComment,
   activeComment,
   updateComment,
   deleteComment,
   addComment,
-  parentId = null,
   currentUserId,
 }) => {
+  const [open, setOpen] = useState(false);
+  const [replies, setReplies] = useState([]);
   const isEditing =
     activeComment &&
     activeComment.id === comment.id &&
     activeComment.type === "editing";
-  const isReplying =
-    activeComment &&
-    activeComment.id === comment.id &&
-    activeComment.type === "replying";
-  const fiveMinutes = 300000;
-  const timePassed = new Date() - new Date(comment.createdAt) > fiveMinutes;
-  const canDelete =
-    currentUserId === comment.userId && replies.length === 0 && !timePassed;
+  const canDelete = currentUserId === comment.userId && replies.length === 0;
   const canReply = Boolean(currentUserId);
   const canEdit = currentUserId === comment.userId && !timePassed;
-  const replyId = parentId ? parentId : comment.id;
   const createdAt = new Date(comment.createdAt).toLocaleDateString();
   return (
-    <div key={comment.id} className="">
-      <div className="">
+    <div key={comment.id} className="flex flex-row border-2 border-black text-white ">
+      <div className=" border-2 rounded-full flex justify-center align-center ">
         <img src="/user-icon.png" />
       </div>
-      <div className="">
-        <div className="">
-          <div className="">{comment.username}</div>
+      <div className=" flex flex-col gap-1 ">
+        <div className="text-center flex flex-col gap-2 px-3">
+          <div className=" font-bold">{comment.username}</div>
           <div>{createdAt}</div>
         </div>
         {!isEditing && <div className="">{comment.body}</div>}
@@ -49,10 +44,10 @@ const Comment = ({
             }}
           />
         )}
-        <div className="">
+        <div className="flex flex-row gap-2 items-center m-2 border-2">
           {canReply && (
             <div
-              className=""
+              className="hover:scale-125 hover:bg-blue-500 bg-stone-400 "
               onClick={() =>
                 setActiveComment({ id: comment.id, type: "replying" })
               }
@@ -62,7 +57,7 @@ const Comment = ({
           )}
           {canEdit && (
             <div
-              className=""
+              className="hover:scale-125 hover:bg-blue-500 bg-stone-400 "
               onClick={() =>
                 setActiveComment({ id: comment.id, type: "editing" })
               }
@@ -71,21 +66,33 @@ const Comment = ({
             </div>
           )}
           {canDelete && (
-            <div
-              className=""
-              onClick={() => deleteComment(comment.id)}
-            >
+            <div className="hover:scale-125 hover:bg-blue-500 bg-stone-400" onClick={() => deleteComment(comment.id)}>
               Delete
             </div>
+          )}
+        </div>
+        <div>
+          {!open && (
+            <button
+              className="active:translate-y-1 text-center active:scale-125 hover:bg-black border border-white bg-stone-500 text-white"
+              onClick={async () => {
+                const appo = await getReplies(comment._id);
+                setReplies(appo)
+                setOpen(true);
+              }}
+            >
+              Apri
+            </button>
           )}
         </div>
         {isReplying && (
           <CommentForm
             submitLabel="Reply"
-            handleSubmit={(text) => addComment(text, replyId)}
+            handleSubmit={(text) => addComment(text)}
           />
         )}
-        {replies.length > 0 && (
+
+        {comment.replies.length > 0 && open && (
           <div className="">
             {replies.map((reply) => (
               <Comment
