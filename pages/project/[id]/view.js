@@ -50,14 +50,15 @@ const modifyProject = async (token, id, description, title, setDescription, setT
   })
 }
 
-const deleteOwner = async (token, id, ownerId, setOwners) => {
+const deleteOwner = async (token,router, id, ownerId, owners, setOwners) => {
   await axios.delete(url+'/api/project/' + id + '/owner/' + ownerId, {
     headers: {
       Authorization: 'Bearer ' + token
     }
-  }).then(() => {
+  }).then((resp) => {
     //router.replace('/');
-    setOwners((prev) => prev.filter((elem) => elem._id == ownerId))
+    setOwners(owners.filter((elem) => {return elem._id == ownerId}))
+    if (resp.data.message == "Removed owner and project") router.replace('/listProjects')
   }).catch(err => {
     console.log(err);
   })
@@ -128,7 +129,7 @@ export default function View({accessToken, router}) {
                         className={"text-xl text-red-500 p-1 rounded-lg " + (!edit ? "hidden" : "")} 
                         onClick={async () => {
                           setEdit(!edit)
-                          await deleteOwner(accessToken, project._id, elem._id, setOwners)}}>
+                          await deleteOwner(accessToken, router, project._id, elem._id, owners, setOwners)}}>
                         <FiXCircle/>
                       </button>
                     </div>
