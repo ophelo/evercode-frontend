@@ -123,8 +123,8 @@ export default function View({accessToken, router}) {
                 </div>
                 {owners.map((elem, id) => {
                   return (
-                    <div className="flex items-center">
-                      <WallCard key={id} name={elem.username} />
+                    <div key={id} className="flex items-center">
+                      <WallCard name={elem.username} />
                       <button 
                         className={"text-xl text-red-500 p-1 rounded-lg " + (!edit ? "hidden" : "")} 
                         onClick={async () => {
