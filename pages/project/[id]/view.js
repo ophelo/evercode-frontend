@@ -5,7 +5,7 @@ import { getSession } from "@auth0/nextjs-auth0";
 import WallCard from "../../../components/friend/WallCard";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import { FiEdit2, FiSave } from 'react-icons/fi'
+import { FiEdit2, FiSave, FiXCircle } from 'react-icons/fi'
 import useSWR from "swr";
 import {fetcherGet} from "../../../utils/fetcher"
 import axios from 'axios'
@@ -45,6 +45,19 @@ const modifyProject = async (token, id, description, title, setDescription, setT
     //router.replace('/');
     setDescription(description)
     setTitle(title)
+  }).catch(err => {
+    console.log(err);
+  })
+}
+
+const deleteOwner = async (token, id, ownerId, setOwners) => {
+  await axios.delete(url+'/api/project/' + id + '/owner/' + ownerId, {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }).then(() => {
+    //router.replace('/');
+    setOwners((prev) => prev.filter((elem) => elem._id == ownerId))
   }).catch(err => {
     console.log(err);
   })
@@ -106,10 +119,20 @@ export default function View({accessToken, router}) {
               <div className="shadow-md p-2">
                 <div className="flex">
                   <div className="text-2xl font-bold">Autori</div>
-                  <button className="pl-2 self-center text-lg"><FiEdit2/></button>
                 </div>
                 {owners.map((elem, id) => {
-                  return (<WallCard key={id} name={elem.username} />)
+                  return (
+                    <div className="flex items-center">
+                      <WallCard key={id} name={elem.username} />
+                      <button 
+                        className={"text-xl text-red-500 p-1 rounded-lg " + (!edit ? "hidden" : "")} 
+                        onClick={async () => {
+                          setEdit(!edit)
+                          await deleteOwner(accessToken, project._id, elem._id, setOwners)}}>
+                        <FiXCircle/>
+                      </button>
+                    </div>
+                  )
                 })}
                 
               </div>

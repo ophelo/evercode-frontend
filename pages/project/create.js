@@ -76,7 +76,7 @@ export default function Create({accessToken, router}) {
                         className="bg-bg1 border-2 border-bwhite w-32  text-bwhite py-0.5 px-0.5 rounded-sm"
                         type="text"
                         value={lang}
-                        placeholder="c++"
+                        placeholder="cpp"
                         onChange={(e) => {
                           setLang(e.target.value);
                         }}
