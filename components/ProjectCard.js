@@ -3,6 +3,7 @@ import Link from "next/link";
 import {BsTrash} from "react-icons/bs"
 import CustomButton from "./CustomButton";
 import { DiJsBadge, DiPython, DiMarkdown } from "react-icons/di";
+import Vote from "./Votes/Votes";
 
 const PanelTile = ({title,date,description,language,onClick}) => {
   const langs = [
@@ -32,6 +33,7 @@ const PanelTile = ({title,date,description,language,onClick}) => {
       </div>
       <div className=" text-center pr-4">{date}</div>
       <CustomButton value={<BsTrash size={10}/>} textColor="text-white" hoverColor="bg-red-700" stndColor="bg-red-500"onClick={onClick} />
+        <Vote/>
     </div>
   );
 };
