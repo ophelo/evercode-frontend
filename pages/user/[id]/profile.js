@@ -1,5 +1,5 @@
-import LastActivity from "../components/LastActivity";
-import NavBar2 from "../components/navbar/NavBar2";
+import LastActivity from "../../../components/LastActivity";
+import NavBar2 from "../../../components/navbar/NavBar2";
 import { getSession } from "@auth0/nextjs-auth0";
 
 const url = (process.env.SECURE ? 'https://' : 'http://') + process.env.BACK_ENDPOINT;
